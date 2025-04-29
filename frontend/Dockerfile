@@ -12,6 +12,8 @@ COPY . .
 # Debug: check if react-scripts is present
 RUN ls -l node_modules/.bin
 
+RUN ls -l node_modules/.bin && npm run build
+
 # Build the React app
 RUN npm run build
 
