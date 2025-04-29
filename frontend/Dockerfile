@@ -1,24 +1,25 @@
-# Use official Node.js image
 FROM node:18
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
+# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy the React code
+# Copy all other frontend code
 COPY . .
+
+# Debug: check if react-scripts is present
+RUN ls -l node_modules/.bin
 
 # Build the React app
 RUN npm run build
 
-# Serve the React app using a simple server (e.g., serve)
+# Install 'serve' globally to serve static build
 RUN npm install -g serve
 
 # Expose frontend port
 EXPOSE 3000
 
-# Start frontend
+# Command to run the app
 CMD ["serve", "-s", "build", "-l", "3000"]
