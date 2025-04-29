@@ -28,7 +28,7 @@ jobs:
         context: ./app
         file: ./app/Dockerfile
         push: true
-        tags: your-dockerhub-username/backend:latest
+        tags: selvabala/backend:latest
 
     - name: Build and Push Frontend Docker Image
       uses: docker/build-push-action@v5
@@ -36,4 +36,4 @@ jobs:
         context: ./frontend
         file: ./frontend/Dockerfile
         push: true
-        tags: your-dockerhub-username/frontend:latest
+        tags: selvabala/frontend:latest
