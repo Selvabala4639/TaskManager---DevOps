@@ -2,27 +2,23 @@ FROM node:18
 
 WORKDIR /app
 
-# Copy exact files for dependency install
+# Copy only dependency files first
 COPY package.json package-lock.json ./
 
-# Force clean install (and show logs)
+# Install dependencies
 RUN npm install
 
-# Copy rest of the source code
+# Copy the rest of the app
 COPY . .
 
-# Show available binaries
-RUN ls -l node_modules/.bin
-
-# Print react-scripts version
-RUN npx react-scripts --version
-
-# Build the React app
+# Build the React app (no need to check version)
 RUN npm run build
 
-# Install serve to serve the app
+# Install serve globally
 RUN npm install -g serve
 
+# Expose frontend port
 EXPOSE 3000
 
+# Run the production build with serve
 CMD ["serve", "-s", "build", "-l", "3000"]
