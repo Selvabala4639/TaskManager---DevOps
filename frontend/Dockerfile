@@ -1,24 +1,19 @@
-FROM node:18
-
+# Step 1: Build React app
+FROM node:18 AS build
 WORKDIR /app
 
-# Copy only dependency files first
 COPY package.json package-lock.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the app
 COPY . .
-
-# Build the React app (no need to check version)
 RUN npm run build
 
-# Install serve globally
+# Step 2: Serve the build using a minimal image
+FROM node:18-alpine
 RUN npm install -g serve
 
-# Expose frontend port
-EXPOSE 3000
+WORKDIR /app
+COPY --from=build /app/build ./build
 
-# Run the production build with serve
+EXPOSE 3000
 CMD ["serve", "-s", "build", "-l", "3000"]
