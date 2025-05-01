@@ -29,6 +29,7 @@ jobs:
         file: ./app/Dockerfile
         push: true
         tags: selvabala/backend:latest
+        no-cache: true 
 
     - name: Build and Push Frontend Docker Image
       uses: docker/build-push-action@v5
