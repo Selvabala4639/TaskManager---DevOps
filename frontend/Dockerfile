@@ -2,18 +2,27 @@ FROM node:18
 
 WORKDIR /app
 
+# Copy exact files for dependency install
 COPY package.json package-lock.json ./
-RUN npm install
 
+# Force clean install (and show logs)
+RUN npm ci
+
+# Copy rest of the source code
 COPY . .
 
-# DEBUG: Check if react-scripts is available
-RUN ls -l node_modules/.bin && node -v && npm -v && npx react-scripts --version
+# Show available binaries
+RUN ls -l node_modules/.bin
 
-# Build
+# Print react-scripts version
+RUN npx react-scripts --version
+
+# Build the React app
 RUN npm run build
 
+# Install serve to serve the app
 RUN npm install -g serve
 
 EXPOSE 3000
+
 CMD ["serve", "-s", "build", "-l", "3000"]
