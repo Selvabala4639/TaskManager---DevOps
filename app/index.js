@@ -13,7 +13,7 @@ let tasks = [
 
 // Existing Routes
 app.get("/", (req, res) => {
-  res.send("🚀 Welcome to AutoShip Task API!");
+  res.send("🚀 Welcome to backend of the Taskmanager");
 });
 
 app.get("/tasks", (req, res) => {
